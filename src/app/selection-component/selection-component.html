@@ -1,0 +1,24 @@
+<div class="container">
+    
+    <div class="display-4 text-center">Insira as seleções</div>
+
+    <form>
+        <div class="d-flex gap-3">
+            <div class="flex-fill">
+                <label for="team1">Seleção 1</label>
+                <input formControlName="team1" list="teams" id="team1" class="form-control">
+            </div>
+            <div class="flex-fill">
+                <label for="team2">Seleção 2</label>
+                <input formControlName="team2" list="teams" id="team2" class="form-control">
+            </div>
+        </div>
+
+        <datalist id="teams">
+            <option value="">
+        </datalist>
+
+        <button type="submit" class="btn btn-primary mt-3">Proximo</button>
+    </form>
+    
+</div>
