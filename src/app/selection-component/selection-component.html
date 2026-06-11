@@ -1,32 +1,49 @@
 <div class="container mt-5">
 
-  <h1 class="display-4 text-center mb-4">Insira as seleções</h1>
+  <h1 class="display-4 text-center mb-5">Insira as seleções</h1>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="d-flex gap-5 justify-content-center align-items-start">
 
       <!-- Seleção 1 -->
-      <div class="text-center">
-        <img *ngIf="team1Logo" [src]="team1Logo" width="150" class="mb-2">
-        <input formControlName="team1" list="teams" class="form-control">
+      <div class="text-center" style="width: 200px">
+        <img *ngIf="team1Selected" [src]="team1Selected.logo"
+             width="160" class="mb-3 border rounded shadow-sm">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="team1"
+          [ngbTypeahead]="search"
+          [inputFormatter]="formatter"
+          [resultFormatter]="formatter"
+          (selectItem)="onTeam1Select($event)"
+          placeholder="Buscar seleção..."
+        />
       </div>
 
-      <div class="align-self-center display-6">vs</div>
+      <div class="align-self-center display-5 fw-bold">vs</div>
 
       <!-- Seleção 2 -->
-      <div class="text-center">
-        <img *ngIf="team2Logo" [src]="team2Logo" width="150" class="mb-2">
-        <input formControlName="team2" list="teams" class="form-control">
+      <div class="text-center" style="width: 200px">
+        <img *ngIf="team2Selected" [src]="team2Selected.logo"
+             width="160" class="mb-3 border rounded shadow-sm">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="team2"
+          [ngbTypeahead]="search"
+          [inputFormatter]="formatter"
+          [resultFormatter]="formatter"
+          (selectItem)="onTeam2Select($event)"
+          placeholder="Buscar seleção..."
+        />
       </div>
 
     </div>
 
-    <datalist id="teams">
-      <option *ngFor="let t of teams" [value]="t.name"></option>
-    </datalist>
-
-    <div class="text-center mt-4">
-      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    <div class="text-center mt-5">
+      <button type="submit" class="btn btn-primary px-4"
+              [disabled]="!team1Selected || !team2Selected">
         Avançar
       </button>
     </div>

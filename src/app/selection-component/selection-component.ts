@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OperatorFunction, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { TeamService, Team } from '../services/team';
 
 @Component({
   selector: 'app-selection-component',
@@ -7,19 +10,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './selection-component.html',
   styleUrl: './selection-component.css',
 })
-export class SelectionComponent {
-  
+export class SelectionComponent implements OnInit {
+
   form!: FormGroup;
+  teams: Team[] = [];
 
-  teams = [
-    { id: 6,   name: 'Brasil',    logo: 'https://media.api-sports.io/football/teams/6.png' },
-    { id: 9,   name: 'Espanha',   logo: 'https://media.api-sports.io/football/teams/9.png' },
-    { id: 10,  name: 'Argentina', logo: 'https://media.api-sports.io/football/teams/10.png' },
-    { id: 505, name: 'Alemanha',  logo: 'https://media.api-sports.io/football/teams/25.png' },
-  ]
+  team1Selected: Team | null = null;
+  team2Selected: Team | null = null;
 
-  team1Logo: string | null = null;
-  team2Logo: string | null = null;
+  constructor(private teamService: TeamService) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -27,22 +26,38 @@ export class SelectionComponent {
       team2: new FormControl('', Validators.required),
     });
 
-     this.form.get('team1')!.valueChanges.subscribe(val => {
-      const found = this.teams.find(t => t.name === val);
-      this.team1Logo = found ? found.logo : null;
+    this.teamService.getTeams().subscribe(data => {
+      this.teams = data;
     });
+  }
 
-    this.form.get('team2')!.valueChanges.subscribe(val => {
-      const found = this.teams.find(t => t.name === val);
-      this.team2Logo = found ? found.logo : null;
-    });
+  search: OperatorFunction<string, Team[]> = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term =>
+        term.length < 1 ? [] :
+        this.teams.filter(t =>
+          t.name.toLowerCase().includes(term.toLowerCase())
+        )
+      )
+    );
+
+  formatter = (t: Team) => t.name;
+
+  onTeam1Select(event: any) {
+    this.team1Selected = event.item;
+    this.form.get('team1')!.setValue(event.item);
+  }
+
+  onTeam2Select(event: any) {
+    this.team2Selected = event.item;
+    this.form.get('team2')!.setValue(event.item);
   }
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Seleções escolhidas:', this.form.value);
-
+      console.log('Seleções:', this.team1Selected, this.team2Selected);
     }
   }
-    
 }
