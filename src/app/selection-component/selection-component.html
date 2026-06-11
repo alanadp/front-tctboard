@@ -1,24 +1,35 @@
-<div class="container">
-    
-    <div class="display-4 text-center">Insira as seleções</div>
+<div class="container mt-5">
 
-    <form>
-        <div class="d-flex gap-3">
-            <div class="flex-fill">
-                <label for="team1">Seleção 1</label>
-                <input formControlName="team1" list="teams" id="team1" class="form-control">
-            </div>
-            <div class="flex-fill">
-                <label for="team2">Seleção 2</label>
-                <input formControlName="team2" list="teams" id="team2" class="form-control">
-            </div>
-        </div>
+  <h1 class="display-4 text-center mb-4">Insira as seleções</h1>
 
-        <datalist id="teams">
-            <option value="">
-        </datalist>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="d-flex gap-5 justify-content-center align-items-start">
 
-        <button type="submit" class="btn btn-primary mt-3">Proximo</button>
-    </form>
-    
+      <!-- Seleção 1 -->
+      <div class="text-center">
+        <img *ngIf="team1Logo" [src]="team1Logo" width="150" class="mb-2">
+        <input formControlName="team1" list="teams" class="form-control">
+      </div>
+
+      <div class="align-self-center display-6">vs</div>
+
+      <!-- Seleção 2 -->
+      <div class="text-center">
+        <img *ngIf="team2Logo" [src]="team2Logo" width="150" class="mb-2">
+        <input formControlName="team2" list="teams" class="form-control">
+      </div>
+
+    </div>
+
+    <datalist id="teams">
+      <option *ngFor="let t of teams" [value]="t.name"></option>
+    </datalist>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        Avançar
+      </button>
+    </div>
+
+  </form>
 </div>

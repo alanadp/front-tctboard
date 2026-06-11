@@ -6,10 +6,11 @@ import { App } from './app';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BoardComponent } from './board-component/board-component';
 import { SelectionComponent } from './selection-component/selection-component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [App, BoardComponent, SelectionComponent],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, ReactiveFormsModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
 })
