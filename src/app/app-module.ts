@@ -9,6 +9,7 @@ import { SelectionComponent } from './selection-component/selection-component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [App, BoardComponent, SelectionComponent],
   imports: [BrowserModule, AppRoutingModule, NgbModule, ReactiveFormsModule, HttpClientModule],

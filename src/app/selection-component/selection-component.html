@@ -7,8 +7,8 @@
 
       <!-- Seleção 1 -->
       <div class="text-center" style="width: 200px">
-        <img *ngIf="team1Selected" [src]="team1Selected.logo"
-             width="160" class="mb-3 border rounded shadow-sm">
+        <img *ngIf="team1Selected" [src]="teamService.getFlagUrl(team1Selected.name)"
+          width="160" class="mb-3 border rounded shadow-sm">
         <input
           type="text"
           class="form-control"
@@ -25,8 +25,8 @@
 
       <!-- Seleção 2 -->
       <div class="text-center" style="width: 200px">
-        <img *ngIf="team2Selected" [src]="team2Selected.logo"
-             width="160" class="mb-3 border rounded shadow-sm">
+        <img *ngIf="team2Selected" [src]="teamService.getFlagUrl(team2Selected.name)"
+        width="160" class="mb-3 border rounded shadow-sm">
         <input
           type="text"
           class="form-control"

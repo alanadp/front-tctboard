@@ -1,33 +1,45 @@
-<div>
-    <div>
+<div class="container-fluid mt-3">
 
-         <div>
+  <!-- Cabeçalho com bandeiras -->
+  <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
+    <img [src]="teamService.getFlagUrl(team1.name)" width="50" class="border rounded">
+    <span class="fs-4 fw-bold">{{ team1.name }}</span>
+    <span class="fs-4 mx-2">vs</span>
+    <span class="fs-4 fw-bold">{{ team2.name }}</span>
+    <img [src]="teamService.getFlagUrl(team2.name)" width="50" class="border rounded">
+  </div>
 
-        </div>
+  <!-- Layout principal -->
+  <div class="d-flex justify-content-center align-items-start gap-3">
 
-        <div>
-    
-        </div>
-
+    <!-- Jogadores time 1 -->
+    <div class="d-flex flex-column gap-2" style="width: 120px">
+      <div *ngFor="let player of players1" class="text-center">
+        <img [src]="player.photo" width="50" height="50"
+             class="rounded border" style="object-fit: cover;">
+        <div class="small text-truncate">{{ player.name }}</div>
+      </div>
     </div>
-   
-    <div>
-        <div>
 
-        </div>
-        <div>
-
-        </div>
-
-        <div>
-
-        </div>
-            
-        <div>
-
-        </div>
-        <div>
-
-        </div>
+    <!-- Campo -->
+    <div class="position-relative" style="width: 350px; height: 520px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Football_pitch_icon_%28green%29.svg/800px-Football_pitch_icon_%28green%29.svg.png"
+       style="width: 100%; height: 100%; object-fit: fill; border-radius: 8px;">
     </div>
+
+    <!-- Jogadores time 2 -->
+    <div class="d-flex flex-column gap-2" style="width: 120px">
+      <div *ngFor="let player of players2" class="text-center">
+        <img [src]="player.photo" width="50" height="50"
+             class="rounded border" style="object-fit: cover;">
+        <div class="small text-truncate">{{ player.name }}</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="text-center mt-3">
+    <button class="btn btn-secondary" (click)="router.navigate(['/'])">Voltar</button>
+  </div>
+
 </div>

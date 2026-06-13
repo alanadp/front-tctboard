@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OperatorFunction, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { TeamService, Team } from '../services/team';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-selection-component',
@@ -18,7 +19,7 @@ export class SelectionComponent implements OnInit {
   team1Selected: Team | null = null;
   team2Selected: Team | null = null;
 
-  constructor(private teamService: TeamService) {}
+  constructor(public teamService: TeamService, private router: Router) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -56,8 +57,13 @@ export class SelectionComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      console.log('Seleções:', this.team1Selected, this.team2Selected);
+  if (this.team1Selected && this.team2Selected) {
+    this.router.navigate(['/board'], {
+        state: {
+          team1: this.team1Selected,
+          team2: this.team2Selected
+        }
+      });
     }
   }
 }

@@ -30,4 +30,22 @@ export class TeamService {
   getSquad(teamId: number): Observable<Player[]> {
     return this.http.get<Player[]>(`${this.apiUrl}/teams/${teamId}/squad`);
   }
+
+  getFlagUrl(teamName: string): string {
+  const flags: { [key: string]: string } = {
+    'Brazil': 'br', 'France': 'fr', 'Argentina': 'ar',
+    'Germany': 'de', 'Spain': 'es', 'Portugal': 'pt',
+    'England': 'gb-eng', 'Netherlands': 'nl', 'Belgium': 'be',
+    'Croatia': 'hr', 'Morocco': 'ma', 'Senegal': 'sn',
+    'Japan': 'jp', 'South Korea': 'kr', 'Australia': 'au',
+    'USA': 'us', 'Mexico': 'mx', 'Ecuador': 'ec',
+    'Uruguay': 'uy', 'Switzerland': 'ch', 'Denmark': 'dk',
+    'Poland': 'pl', 'Tunisia': 'tn', 'Cameroon': 'cm',
+    'Ghana': 'gh', 'Serbia': 'rs', 'Wales': 'gb-wls',
+    'Canada': 'ca', 'Costa Rica': 'cr', 'Qatar': 'qa',
+    'Saudi Arabia': 'sa', 'Iran': 'ir'
+  };
+  const code = flags[teamName];
+  return code ? `https://flagcdn.com/w160/${code}.png` : '';
+}
 }
