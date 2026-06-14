@@ -14,6 +14,7 @@
 
     <!-- Jogadores time 1 -->
     <div style="width: 130px; max-height: 700px; overflow-y: auto;">
+      <p>Debug: {{ players1.length }} jogadores</p>
       <div *ngFor="let player of players1" class="text-center mb-2">
         <img [src]="player.photo" width="50" height="50"
              class="rounded border" style="object-fit: cover;"
@@ -39,6 +40,7 @@
 
     <!-- Jogadores time 2 -->
     <div style="width: 130px; max-height: 700px; overflow-y: auto;">
+      <p>Debug: {{ players2.length }} jogadores</p>
       <div *ngFor="let player of players2" class="text-center mb-2">
         <img [src]="player.photo" width="50" height="50"
              class="rounded border" style="object-fit: cover;"
