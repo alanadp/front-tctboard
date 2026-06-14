@@ -34,4 +34,8 @@ export class BoardComponent implements OnInit {
       this.players2 = data;
     });
   }
+
+  onImgError(event: any) {
+    event.target.src = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+  }
 }
