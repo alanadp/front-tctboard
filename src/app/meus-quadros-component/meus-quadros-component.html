@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Meus quadros táticos</h1>
+
+  <div *ngIf="quadros().length === 0" class="text-muted">
+    Nenhum quadro tático salvo ainda.
+  </div>
+
+  <div class="d-flex flex-wrap gap-3">
+    <div *ngFor="let quadro of quadros()" class="card bg-light" style="width: 220px;">
+      <div class="card-body text-center">
+        <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+          <img [src]="quadro.team1Logo" width="40" (error)="onImgError($event)">
+          <span class="fw-bold small">vs</span>
+          <img [src]="quadro.team2Logo" width="40" (error)="onImgError($event)">
+        </div>
+        <div class="small text-muted mb-2">{{ quadro.team1Name }} vs {{ quadro.team2Name }}</div>
+        <button class="btn btn-sm btn-link" (click)="visualizar(quadro)">Visualizar</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal de visualização (somente leitura) -->
+<div *ngIf="quadroSelecionado() as quadro"
+     class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+     style="background: rgba(0,0,0,0.6); z-index: 1050;">
+
+  <div class="position-relative bg-white p-3 rounded">
+    <button class="btn-close position-absolute top-0 end-0 m-2" (click)="fechar()"></button>
+
+    <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+      <img [src]="quadro.team1Logo" width="40" (error)="onImgError($event)">
+      <span class="fw-bold">vs</span>
+      <img [src]="quadro.team2Logo" width="40" (error)="onImgError($event)">
+    </div>
+
+    <div class="campo-readonly position-relative" style="width: 350px; height: 520px; background: linear-gradient(180deg, #4a9e4a 0%, #3d8c3d 50%, #4a9e4a 100%); border-radius: 8px; border: 3px solid white;">
+      <div style="position:absolute; top:50%; left:0; right:0; height:2px; background:rgba(255,255,255,0.8);"></div>
+      <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:80px; height:80px; border-radius:50%; border:2px solid rgba(255,255,255,0.8);"></div>
+      <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:6px; height:6px; border-radius:50%; background:white;"></div>
+
+      <div *ngFor="let jogador of quadro.jogadores"
+           class="placed-player text-center"
+           [style.left.%]="jogador.posX"
+           [style.top.%]="jogador.posY">
+        <img [src]="getPlayerPhoto(jogador.playerPhoto)" width="35" height="35"
+             class="rounded-circle border border-2"
+             style="object-fit: cover;"
+             (error)="onImgError($event)">
+        <div class="small text-white fw-bold text-truncate" style="text-shadow: 1px 1px 2px black; max-width: 60px; margin: 0 auto;">
+          {{ jogador.playerName }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,36 @@ export interface Player {
   photo: string;
 }
 
+export interface PlacedPlayer {
+  player: Player;
+  team: 1 | 2;
+  xPercent: number;
+  yPercent: number;
+}
+
+export interface JogadorPosicionado {
+  playerId: number;
+  playerName: string;
+  playerPhoto: string;
+  teamNumber: 1 | 2;
+  posX: number;
+  posY: number;
+}
+
+export interface QuadroTaticoRequest {
+  team1Id: number;
+  team1Name: string;
+  team1Logo: string;
+  team2Id: number;
+  team2Name: string;
+  team2Logo: string;
+  jogadores: JogadorPosicionado[];
+}
+
+export interface QuadroTaticoResponse extends QuadroTaticoRequest {
+  id: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,6 +76,18 @@ export class TeamService {
     'Saudi Arabia': 'sa', 'Iran': 'ir'
   };
   const code = flags[teamName];
-  return code ? `https://flagcdn.com/w160/${code}.png` : '';
-}
+    return code ? `https://flagcdn.com/w160/${code}.png` : '';
+  }
+
+  saveQuadro(quadro: QuadroTaticoRequest): Observable<QuadroTaticoResponse> {
+    return this.http.post<QuadroTaticoResponse>(`${this.apiUrl}/quadros`, quadro);
+  }
+
+  getQuadros(): Observable<QuadroTaticoResponse[]> {
+    return this.http.get<QuadroTaticoResponse[]>(`${this.apiUrl}/quadros`);
+  }
+
+  getQuadroById(id: number): Observable<QuadroTaticoResponse> {
+    return this.http.get<QuadroTaticoResponse>(`${this.apiUrl}/quadros/${id}`);
+  }
 }

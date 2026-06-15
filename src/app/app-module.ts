@@ -1,5 +1,6 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -12,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [App, BoardComponent, SelectionComponent],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, ReactiveFormsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, ReactiveFormsModule, HttpClientModule, DragDropModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
 })
