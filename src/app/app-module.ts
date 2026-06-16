@@ -7,12 +7,13 @@ import { App } from './app';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BoardComponent } from './board-component/board-component';
 import { SelectionComponent } from './selection-component/selection-component';
+import { MeusQuadrosComponent } from './meus-quadros-component/meus-quadros-component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [App, BoardComponent, SelectionComponent],
+  declarations: [App, BoardComponent, SelectionComponent, MeusQuadrosComponent],
   imports: [BrowserModule, AppRoutingModule, NgbModule, ReactiveFormsModule, HttpClientModule, DragDropModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],

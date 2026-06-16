@@ -1,11 +1,10 @@
 .placed-player {
   position: absolute;
   transform: translate(-50%, -50%);
-  cursor: move;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 70px;
+  width: 60px;
   z-index: 10;
 }
 
